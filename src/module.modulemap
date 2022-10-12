@@ -1,0 +1,8 @@
+module A {
+    header "moduleA-headerA.h"
+    header "moduleA-headerB.h"
+}
+
+module B {
+    header "moduleB-headerA.h"
+}
