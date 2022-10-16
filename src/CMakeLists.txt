@@ -1,11 +1,15 @@
-add_executable(swift-client swift-client.swift)
-add_executable(objc-client objc-client.m)
-add_library(A moduleA-implementationA.m)
-add_library(B moduleB-implementationA.m)
-target_link_libraries(swift-client PRIVATE A B)
-target_include_directories(swift-client PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_options(swift-client PRIVATE "SHELL: -target arm64-apple-macos12.6 -Xfrontend -enable-objc-interop")
-target_link_libraries(objc-client PRIVATE A B)
-target_include_directories(objc-client PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_options(objc-client PRIVATE "SHELL: -fmodules")
-# add_custom_target(swift-client-module COMMAND ${CMAKE_Swift_COMPILER} -emit-module ${CMAKE_CURRENT_SOURCE_DIR}/swift-client.swift -I ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(swift-client-complete swift-client-complete.swift)
+add_executable(swift-client-fwd-declared swift-client-fwd-declared.swift)
+
+add_library(foo foo.m)
+add_library(foo-consumer foo-consumer.m)
+
+target_link_libraries(foo-consumer foo)
+
+target_link_libraries(swift-client-complete PRIVATE foo foo-consumer)
+target_include_directories(swift-client-complete PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_options(swift-client-complete PRIVATE "SHELL: -target arm64-apple-macos12.6 -Xfrontend -enable-objc-interop")
+
+target_link_libraries(swift-client-fwd-declared PRIVATE foo-consumer)
+target_include_directories(swift-client-fwd-declared PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_options(swift-client-fwd-declared PRIVATE "SHELL: -target arm64-apple-macos12.6 -Xfrontend -enable-objc-interop")
