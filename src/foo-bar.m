@@ -1,4 +1,4 @@
-#import "foo.h"
+#import "foo-bar.h"
 
 @implementation Foo
 - (void) sayHello {

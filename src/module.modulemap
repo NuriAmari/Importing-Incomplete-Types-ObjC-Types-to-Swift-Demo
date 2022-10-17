@@ -1,16 +1,7 @@
-module A {
-    header "moduleA-headerA.h"
-    header "moduleA-headerB.h"
+module FooBar {
+    header "foo-bar.h"
 }
 
-module B {
-    header "moduleB-headerA.h"
-}
-
-module Foo {
-    header "foo.h"
-}
-
-module FooConsumer {
-    header "foo-consumer.h"
+module FooBarConsumer {
+    header "foo-bar-consumer.h"
 }
